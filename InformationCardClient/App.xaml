@@ -1,0 +1,21 @@
+﻿<Application x:Class="InformationCardClient.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:InformationCardClient"
+             xmlns:viewModels="clr-namespace:InformationCardClient.ViewModels"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        
+        <viewModels:MainWindowViewModel x:Key="MainWindowViewModel"/>
+
+        <Style x:Key="ValidTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding (Validation.Errors).CurrentItem.ErrorContent, RelativeSource={RelativeSource Self}}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+    </Application.Resources>
+</Application>

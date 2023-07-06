@@ -1,0 +1,43 @@
+﻿<Window x:Class="InformationCardClient.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InformationCardClient.Views"
+        xmlns:System="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d"
+        Title="Information Cards App" Height="450" Width="800" WindowStartupLocation="CenterScreen" DataContext="{StaticResource MainWindowViewModel}">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Height="24" VerticalAlignment="Top" FontSize="13.333">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit" Click="MenuItemExit_Click"/>
+            </MenuItem>
+            <MenuItem Header="Edit">
+                <MenuItem Header="Add card" Command="{Binding AddCardCommand}"/>
+                <MenuItem Header="Delete selected cards" Command = "{Binding DelCardCommand}" CommandParameter = "{Binding ElementName = lvCardsList, Path = SelectedItems}"/>
+                <MenuItem Header="Edit selected card" Command = "{Binding EditCardCommand}" CommandParameter = "{Binding ElementName = lvCardsList, Path = SelectedItems}"/>
+            </MenuItem>
+            <MenuItem Header="View">
+                <MenuItem Header="Sort cards ascending" Command = "{Binding SortCommand}" CommandParameter = "asc"/>
+                <MenuItem Header="Sort cards descending" Command = "{Binding SortCommand}" CommandParameter = "desc"/>
+            </MenuItem>
+        </Menu>
+        <ListView ItemsSource="{Binding Cards}" DockPanel.Dock="Top" Name="lvCardsList" SelectionMode="Multiple">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType={x:Type ScrollContentPresenter}}}"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="Black" BorderBrush="#FF292828" Width="156" Height="206" BorderThickness="3,3,3,3" CornerRadius="8" Margin="5,10">
+                        <DockPanel>
+                            <TextBox BorderThickness="0" IsReadOnly="True" DockPanel.Dock="Top" TextWrapping="WrapWithOverflow" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding Name}" Foreground="White" Height="50" Background="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionTextBrush="{x:Null}"/>
+                            <Image Source="{Binding ImageData}" Height="150" Width="150" DockPanel.Dock="Top"/>
+                        </DockPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+       </ListView>
+    </DockPanel>
+</Window>
